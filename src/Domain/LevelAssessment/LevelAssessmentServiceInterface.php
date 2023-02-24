@@ -1,7 +1,7 @@
 <?php
 
 
-namespace Busuu\Service;
+namespace Busuu\Domain\LevelAssessment;
 
 
 interface LevelAssessmentServiceInterface

@@ -1,6 +1,6 @@
 <?php
 
-namespace Busuu\Entity;
+namespace Busuu\Domain\Exercise;
 
 
 class Exercise

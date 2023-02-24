@@ -1,6 +1,8 @@
 <?php
 
-namespace Busuu\Service;
+namespace Busuu\Application\LevelAssessment;
+
+use Busuu\Domain\LevelAssessment\LevelAssessmentServiceInterface;
 
 class LevelAssessmentService implements LevelAssessmentServiceInterface
 {

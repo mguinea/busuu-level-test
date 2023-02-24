@@ -1,8 +1,8 @@
 <?php
 
 
-use Busuu\Entity\Exercise;
-use Busuu\Service\LevelAssessmentService;
+use Busuu\Domain\Exercise\Exercise;
+use Busuu\Application\LevelAssessment\LevelAssessmentService;
 use PHPUnit\Framework\TestCase;
 
 /**

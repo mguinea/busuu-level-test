@@ -2,7 +2,7 @@
 
 
 use Busuu\Domain\Exercise\Exercise;
-use Busuu\Application\LevelAssessment\LevelAssessmentService;
+use Busuu\Domain\LevelAssessment\LevelAssessmentService;
 use PHPUnit\Framework\TestCase;
 
 /**

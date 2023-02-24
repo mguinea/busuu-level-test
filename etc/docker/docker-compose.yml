@@ -1,0 +1,52 @@
+version: '3.7'
+
+services:
+
+  db:
+    environment:
+      MARIADB_ROOT_PASSWORD: secret
+      MARIADB_DATABASE: example
+      MARIADB_USER: example
+      MARIADB_PASSWORD: secret
+    container_name: busuu-level-test.db
+    image: mariadb:10.7.4
+    ports:
+      - "3306:3306"
+    restart: unless-stopped
+    volumes:
+      - busuu-level-test.dbdata:/var/lib/mysql/
+    networks:
+      - busuu-level-test
+
+  app:
+    build:
+      context: ./../../
+      dockerfile: ./etc/docker/php.Dockerfile
+    container_name: busuu-level-test.app
+    restart: unless-stopped
+    tty: true
+    volumes:
+      - ./../../:/var/www
+    depends_on:
+      - db
+    networks:
+      - busuu-level-test
+
+  adminer:
+    image: adminer
+    container_name: busuu-level-test.adminer
+    restart: always
+    depends_on:
+      - db
+    ports:
+      - "8080:8080"
+    networks:
+      - busuu-level-test
+
+networks:
+  busuu-level-test:
+    driver: bridge
+
+volumes:
+  busuu-level-test.dbdata:
+    driver: local

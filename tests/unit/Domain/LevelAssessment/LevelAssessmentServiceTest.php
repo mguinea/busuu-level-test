@@ -6,10 +6,20 @@ namespace Busuu\Tests\unit\Domain\LevelAssessment;
 
 use Busuu\Domain\Exercise\Exercise;
 use Busuu\Domain\LevelAssessment\LevelAssessmentService;
+use Busuu\Tests\unit\Infrastructure\Shared\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LevelAssessmentServiceTest extends TestCase
 {
+    use WithContainerTrait;
+
+    private LevelAssessmentService $levelAssessmentService;
+
+    protected function setUp(): void
+    {
+        $this->levelAssessmentService = $this->container()->get(LevelAssessmentService::class);
+    }
+
     /**
      * @dataProvider provideResults
      * @param array $results
@@ -19,7 +29,7 @@ final class LevelAssessmentServiceTest extends TestCase
     public function testItShouldCalculateCorrectGrade(array $results, string $expected): void
     {
         $exercises = array_map(fn($passed) => $this->toExercise($passed), $results);
-        $this->assertEquals($expected, (new LevelAssessmentService())->calculateLevel($exercises));
+        $this->assertEquals($expected, $this->levelAssessmentService->calculateLevel($exercises));
     }
 
     private function toExercise(bool $passed): Exercise

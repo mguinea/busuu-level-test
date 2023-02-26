@@ -9,9 +9,16 @@ final class LevelAssessment
     private int $gradeIndex = 0;
     private array $grades = ['A1', 'A2', 'B1', 'B2', 'C1', 'C2'];
 
+    private LevelAssessmentUpdaterFactory $factory;
+
+    public function __construct(LevelAssessmentUpdaterFactory $factory)
+    {
+        $this->factory = $factory;
+    }
+
     public function applyExerciseSetPoints(int $points): void
     {
-        $levelAssessmentLevelUpdater = (new LevelAssessmentUpdaterFactory())->make($points);
+        $levelAssessmentLevelUpdater = $this->factory->make($points);
 
         $this->updateGrade($levelAssessmentLevelUpdater->levels());
     }

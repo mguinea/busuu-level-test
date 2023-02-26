@@ -9,11 +9,21 @@ use Busuu\Domain\LevelAssessment\LevelAssessmentGoUpOneLevelUpdater;
 use Busuu\Domain\LevelAssessment\LevelAssessmentGoUpTwoLevelsUpdater;
 use Busuu\Domain\LevelAssessment\LevelAssessmentStaysAtLevelUpdater;
 use Busuu\Domain\LevelAssessment\LevelAssessmentUpdaterFactory;
+use Busuu\Tests\unit\Infrastructure\Shared\WithContainerTrait;
 use Exception;
 use PHPUnit\Framework\TestCase;
 
 final class LevelAssessmentUpdaterFactoryTest extends TestCase
 {
+    use WithContainerTrait;
+
+    private LevelAssessmentUpdaterFactory $factory;
+
+    protected function setUp(): void
+    {
+        $this->factory = $this->container()->get(LevelAssessmentUpdaterFactory::class);
+    }
+
     /**
      * @dataProvider providePointsAndExpectedUpdater
      * @param int $points
@@ -23,9 +33,7 @@ final class LevelAssessmentUpdaterFactoryTest extends TestCase
      */
     public function testItShouldMakeProperUpdater(int $points, string $expected): void
     {
-        $factory = new LevelAssessmentUpdaterFactory();
-
-        $this->assertInstanceOf($expected, $factory->make($points));
+        $this->assertInstanceOf($expected, $this->factory->make($points));
     }
 
     public function providePointsAndExpectedUpdater(): array

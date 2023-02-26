@@ -3,6 +3,7 @@
 
 use Busuu\Domain\Exercise\Exercise;
 use Busuu\Domain\LevelAssessment\LevelAssessmentService;
+use Busuu\Tests\unit\Infrastructure\Shared\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -12,14 +13,21 @@ use PHPUnit\Framework\TestCase;
  */
 class CheckImplementationIsCorrectTest extends TestCase
 {
+    use WithContainerTrait;
+
+    private LevelAssessmentService $placementTestService;
+
+    protected function setUp(): void
+    {
+        $this->placementTestService = $this->container()->get(LevelAssessmentService::class);
+    }
+
     /**
      * Not enough exercises to evaluate the user
      */
     public function testEvaluationNotComplete()
     {
-        $placementTestService = new LevelAssessmentService();
-
-        $result = $placementTestService->calculateLevel($this->exercisesDataProviderSet1());
+        $result = $this->placementTestService->calculateLevel($this->exercisesDataProviderSet1());
 
         $this->assertFalse($result);
     }
@@ -29,9 +37,7 @@ class CheckImplementationIsCorrectTest extends TestCase
      */
     public function testEvaluationCompleteLevelA2()
     {
-        $placementTestService = new LevelAssessmentService();
-
-        $result = $placementTestService->calculateLevel($this->exercisesDataProviderSet2());
+        $result = $this->placementTestService->calculateLevel($this->exercisesDataProviderSet2());
 
         $this->assertEquals('A2', $result);
     }
@@ -41,9 +47,7 @@ class CheckImplementationIsCorrectTest extends TestCase
      */
     public function testEvaluationCompleteLevelC2()
     {
-        $placementTestService = new LevelAssessmentService();
-
-        $result = $placementTestService->calculateLevel($this->exercisesDataProviderSet3());
+        $result = $this->placementTestService->calculateLevel($this->exercisesDataProviderSet3());
 
         $this->assertEquals('C2', $result);
     }
@@ -53,9 +57,7 @@ class CheckImplementationIsCorrectTest extends TestCase
      */
     public function testEvaluationCompleteLevelA1()
     {
-        $placementTestService = new LevelAssessmentService();
-
-        $result = $placementTestService->calculateLevel($this->exercisesDataProviderSet4());
+        $result = $this->placementTestService->calculateLevel($this->exercisesDataProviderSet4());
 
         $this->assertEquals('A1', $result);
     }

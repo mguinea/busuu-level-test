@@ -5,10 +5,20 @@ declare(strict_types=1);
 namespace Busuu\Tests\unit\Domain\LevelAssessment;
 
 use Busuu\Domain\LevelAssessment\LevelAssessment;
+use Busuu\Tests\unit\Infrastructure\Shared\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
 
 final class LevelAssessmentTest extends TestCase
 {
+    use WithContainerTrait;
+
+    private LevelAssessment $levelAssessment;
+
+    protected function setUp(): void
+    {
+        $this->levelAssessment = $this->container()->get(LevelAssessment::class);
+    }
+
     /**
      * @dataProvider providePointsAndExpectedLevel
      * @param array $exerciseSetsPoints
@@ -17,13 +27,11 @@ final class LevelAssessmentTest extends TestCase
      */
     public function testItShouldReturnProperGrade(array $exerciseSetsPoints, string $expected): void
     {
-        $levelAssessment = new LevelAssessment();
-
         foreach($exerciseSetsPoints as $points) {
-            $levelAssessment->applyExerciseSetPoints($points);
+            $this->levelAssessment->applyExerciseSetPoints($points);
         }
 
-        $this->assertEquals($expected, $levelAssessment->grade());
+        $this->assertEquals($expected, $this->levelAssessment->grade());
     }
 
     public function providePointsAndExpectedLevel(): array

@@ -9,18 +9,9 @@ final class LevelAssessmentUpdaterFactory
 {
     private array $levelAssessmentLevelUpdaters;
 
-    public function __construct()
+    public function __construct(LevelAssessmentLevelUpdaterInterface ...$levelAssessmentLevelUpdaters)
     {
-        // If using a Service Container in <CheckImplementationIsCorrectTest> we could
-        // use Dependency Injection as I mention in this article https://dev.to/mguinea/improve-your-factories-in-symfony-4mf3
-        // making this more elegant than writing directly the strategies
-
-        $this->levelAssessmentLevelUpdaters = [
-            new LevelAssessmentStaysAtLevelUpdater(),
-            new LevelAssessmentGoDownOneLevelUpdater(),
-            new LevelAssessmentGoUpOneLevelUpdater(),
-            new LevelAssessmentGoUpTwoLevelsUpdater()
-        ];
+        $this->levelAssessmentLevelUpdaters = $levelAssessmentLevelUpdaters;
     }
 
     /**

@@ -12,13 +12,19 @@ final class LevelAssessmentService implements LevelAssessmentServiceInterface
     private const MAXIMUM_EXERCISE_SETS = 5;
     private const MAXIMUM_CONSECUTIVE = 2;
 
+    private LevelAssessment $levelAssessment;
+
+    public function __construct(LevelAssessment $levelAssessment)
+    {
+        $this->levelAssessment = $levelAssessment;
+    }
+
     /**
      * @param array $exercises
      * @return string|bool
      */
     public function calculateLevel(array $exercises)
     {
-        $levelAssessment = new LevelAssessment();
         $exerciseSetCollection = ExerciseSetCollection::fromExercises($exercises);
 
         if ($exerciseSetCollection->total() < self::MINIMUM_EXERCISE_SETS) {
@@ -30,9 +36,9 @@ final class LevelAssessmentService implements LevelAssessmentServiceInterface
             ->consecutive(self::MAXIMUM_CONSECUTIVE);
 
         foreach($toEvaluateExerciseSetCollection->items() as $toEvaluateExerciseSet) {
-            $levelAssessment->applyExerciseSetPoints($toEvaluateExerciseSet->points());
+            $this->levelAssessment->applyExerciseSetPoints($toEvaluateExerciseSet->points());
         }
 
-        return $levelAssessment->grade();
+        return $this->levelAssessment->grade();
     }
 }

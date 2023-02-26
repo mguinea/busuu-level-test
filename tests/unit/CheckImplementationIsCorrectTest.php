@@ -3,8 +3,7 @@
 
 use Busuu\Domain\Exercise\Exercise;
 use Busuu\Domain\LevelAssessment\LevelAssessmentService;
-use Busuu\Infrastructure\LevelAssessment\League\LevelAssessmentServiceProvider;
-use League\Container\Container;
+use Busuu\Tests\unit\Infrastructure\Shared\WithContainerTrait;
 use PHPUnit\Framework\TestCase;
 
 /**
@@ -14,14 +13,13 @@ use PHPUnit\Framework\TestCase;
  */
 class CheckImplementationIsCorrectTest extends TestCase
 {
+    use WithContainerTrait;
+
     private LevelAssessmentService $placementTestService;
 
     protected function setUp(): void
     {
-        $container = new Container();
-        $container->addServiceProvider(new LevelAssessmentServiceProvider());
-
-        $this->placementTestService = $container->get(LevelAssessmentService::class);
+        $this->placementTestService = $this->container()->get(LevelAssessmentService::class);
     }
 
     /**

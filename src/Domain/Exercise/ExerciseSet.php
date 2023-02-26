@@ -19,9 +19,7 @@ final class ExerciseSet
 
     private function calculatePoints(array $exercises): int
     {
-        $points = array_map(function(Exercise $exercise) {
-            return $exercise->isPassed() ? 1 : 0;
-        }, $exercises);
+        $points = array_map(fn(Exercise $exercise) => $exercise->isPassed() ? 1 : 0, $exercises);
 
         return array_sum($points);
     }

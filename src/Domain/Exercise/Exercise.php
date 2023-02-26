@@ -1,9 +1,11 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Busuu\Domain\Exercise;
 
 
-class Exercise
+final class Exercise
 {
     /**
      * @var bool

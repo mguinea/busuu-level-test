@@ -8,9 +8,9 @@ use Busuu\Domain\Exercise\ExerciseSetCollection;
 
 final class LevelAssessmentService implements LevelAssessmentServiceInterface
 {
-    const MINIMUM_EXERCISE_SETS = 2;
-    const MAXIMUM_EXERCISE_SETS = 5;
-    const MAXIMUM_CONSECUTIVE = 2;
+    private const MINIMUM_EXERCISE_SETS = 2;
+    private const MAXIMUM_EXERCISE_SETS = 5;
+    private const MAXIMUM_CONSECUTIVE = 2;
 
     /**
      * @param array $exercises
